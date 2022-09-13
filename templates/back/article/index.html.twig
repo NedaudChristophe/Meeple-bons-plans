@@ -1,0 +1,58 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Article{% endblock %}
+
+{% block body %}
+<div class="container pt-5">
+
+    <div class="row mb-2">
+        <h1 class="text-center my-5" style="font-family: 'Luckiest Guy', serif;color: #007682;">Les <span style="color: #d53767;">actualités</span></h1>
+        <div class="col">
+            
+        {% if is_granted('ROLE_ADMIN') %} 
+            <a class="btn btn-primary mb-4" style="font-family: 'Luckiest Guy', serif;background-color:#007682;border:none;letter-spacing: 1px;" href="{{ path('app_back_article_new') }}">Ajouter une actu</a>
+        {% endif %}
+
+                <table class="table text-center table-striped table-hover">
+                    <thead style="font-family: 'Luckiest Guy', serif;color: #d53767;letter-spacing: 1px;">
+                        <tr>
+                            <th class="elt_display-tablet">Id</th>
+                            <th class="col-4 ">Titre</th>
+                            <th class ="elt_display-desktop">Image</th>
+                            <th class ="elt_display-tablet">Description</th>
+                            <th class ="elt_display-none">Content</th>
+                            <th class ="elt_display-none">Publié le</th>
+                            <th class ="elt_display-none">UpdatedAt</th>
+                            <th class="col-3">actions</th>
+                        </tr>
+                    </thead>
+                    <tbody  class="align-middle">
+                    {% for article in articles %}
+                        <tr>
+                            <td class ="elt_display-tablet">{{ article.id }}</td>
+                            <td>{{ article.title }}</td>
+                            <td class="elt_display-desktop"><img  style="width: 100px; height: 100px;" src="{{ article.image }}" alt="image"</td>
+                            <td class ="elt_display-tablet">{{ article.description|striptags|slice(0, 100) }}</td>
+                            <td class ="elt_display-none">{{ article.content }}</td>
+                            <td class ="elt_display-none">{{ article.createdAt ? article.createdAt|date('Y-m-d') : '' }}</td>
+                            <td class ="elt_display-none">{{ article.updatedAt ? article.updatedAt|date('Y-m-d') : '' }}</td>
+                            
+                                <td>
+                                    <a class="btn btn-sm btn-primary" style="background-color: #CDF7F6;border:none;color: #333333;font-weight:bold;margin-right:5px;" href="{{ path('app_back_article_show', {'id': article.id}) }}">Voir</a>
+                                    
+                                    {% if is_granted('ROLE_ADMIN') %}   
+                                        <a class="btn btn-sm btn-warning" style="background-color: #333333;border:none;color: white;font-weight:bold;" href="{{ path('app_back_article_edit', {'id': article.id}) }}">Modifier</a>
+                                    {% endif %} 
+                                </td>
+                            
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="8">Actualité non trouvée</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+
+    
+{% endblock %}

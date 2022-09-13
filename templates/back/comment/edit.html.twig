@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Comment{% endblock %}
+
+{% block body %}
+
+<div class="container pt-5">
+
+    <div class="row mb-2">
+        
+        <div class="col">
+            <h1 class="text-center mb-5" style="font-family: 'Luckiest Guy', serif;color: #007682;">Edition du commentaire de <span style="color: #d53767;">{{ comment.user.name }}</span></h1>
+            <a class="btn btn-primary mb-5" style="font-family: 'Luckiest Guy', serif;background-color:#007682;border:none;letter-spacing: 1px;" href="{{ path('app_back_comment_index') }}">Retour à la liste</a>
+
+            <div class="col" style="font-family: 'Luckiest Guy', serif;color: #d53767;">
+    
+                {{ include('back/comment/_form.html.twig', {'button_label': 'Enregistrer'}) }}
+
+                {{ include('back/comment/_delete_form.html.twig') }}
+            </div>
+            
+        </div>
+    </div>
+</div>
+{% endblock %}

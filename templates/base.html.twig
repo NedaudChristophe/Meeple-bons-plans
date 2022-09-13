@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        
+        <!-- Bootstrap CSS -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet"
+            integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+        <!-- Bootstrap icons -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+        <!-- Our custom CSS -->
+        
+        <title>{% block title %}Welcome!{% endblock %}</title>
+        
+        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800&amp;display=swap">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Luckiest+Guy&amp;display=swap">
+        <link rel="stylesheet" href={{asset('css/style.css')}}>
+        {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
+        {% block stylesheets %}
+            {{ encore_entry_link_tags('app') }}
+        {% endblock %}
+
+        {% block javascripts %}
+            {{ encore_entry_script_tags('app') }}
+        {% endblock %}
+    </head>
+    <body class="licorne">
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="background-color: #333333">
+        <div class="container-fluid">
+            <a href="./" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none header-logo">
+                <img src="{{asset('logo-png.png') }}" class="mx-3" height="55" alt="Logo Meeple">
+            <span class="header-logo__title d-flex" style="font-family: 'Luckiest Guy', serif;color: #007682;font-size: 20px;">MEEPLE<span class="mx-3" style="font-family: 'Luckiest Guy', serif;color: #d53767;font-size: 20px;">BACKOFFICE</span></span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0 text-center" style="font-family: 'Luckiest Guy'">
+            {% if is_granted('ROLE_MANAGER') %}
+                <!--Début Dropdown-->
+                <li class="nav-item dropdown" >
+                <a class="nav-link dropdown-toggle custom-color__green" style="font-size:0.85em;" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Gestion deal
+                </a>
+                <ul class="dropdown-menu custom-backgroundColor__pink text-sm-center text-lg-start">
+                    <li>
+                        <a class="dropdown-item custom-color__white" style="font-size:0.75em" href="{{ path('app_back_deal_index') }}">Deals</a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item custom-color__white" style="font-size:0.75em" href="{{ path('app_back_review_index') }}">Reviews</a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item custom-color__white" style="font-size:0.75em" href="{{ path('app_back_comment_index') }}">Comments</a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item custom-color__white" style="font-size:0.75em" href="{{ path('app_back_type_index') }}">Types</a>
+                    </li>
+                </ul>
+                </li>
+
+                <!--Début Dropdown-->
+                <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle custom-color__green" style="font-size:0.85em " href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Gestion article
+                </a>
+                <ul class="dropdown-menu custom-backgroundColor__pink  text-sm-center text-lg-start">
+                    <li>
+                        <a class="dropdown-item custom-color__white" style="font-size:0.75em" href="{{ path('app_back_article_index') }}">Articles</a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item custom-color__white" style="font-size:0.75em" href="{{ path('app_back_label_index') }}">Labels</a>
+                    </li>
+                </ul>
+                </li>
+
+                <!--Début Dropdown-->
+                <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle custom-color__green" style="font-size:0.85em " href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Gestion user
+                </a>
+                <ul class="dropdown-menu custom-backgroundColor__pink  text-sm-center text-lg-start" >
+                    <li>
+                        <a class="dropdown-item custom-color__white" style="font-size:0.75em" href="{{ path('app_back_user_index') }}">Users</a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item custom-color__white" style="font-size:0.75em" href="{{ path('app_back_avatar_index') }}">Avatars</a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item custom-color__white" style="font-size:0.75em" href="{{ path('app_back_badge_index') }}">Badges</a>
+                    </li>
+                </ul>
+                </li>
+
+                <!--Début Dropdown-->
+                <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle custom-color__green" style="font-size:0.85em " href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Gestion game
+                </a>
+                <ul class="dropdown-menu custom-backgroundColor__pink text-sm-center text-lg-start">
+                    <li>
+                        <a class="dropdown-item custom-color__white" style="font-size:0.75em" href="{{ path('app_back_game_index') }}">Games</a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item custom-color__white" style="font-size:0.75em" href="{{ path('app_back_new_game_index') }}">Demandes</a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item custom-color__white" style="font-size:0.75em" href="{{ path('app_back_category_index') }}">Categories</a>
+                    </li>
+                </ul>
+                </li>
+                <li>
+                    <a class="nav-link custom-color__green" style="font-size:0.85em " aria-current="page" href="{{ path('app_back_shop_index') }}">Gestion Shop</a>
+                </li>
+            {% endif %} 
+            </ul>
+
+            {% if is_granted('ROLE_MANAGER') %}
+            <ul class="navbar-nav mx-auto mb-2 mb-lg-0  text-sm-center text-lg-end">
+                {# maintenant que l'on a l'auth on peut utiliser app.user #}
+                {% if app.user == null %}
+                    <a href="{{ path('app_login')}}" class="btn btn-danger me-2" style="font-family: 'Luckiest Guy', serif;background-color:#007682;border:none;letter-spacing: 1px;">Connexion</a>
+                {% else %}
+                <li class="nav-item dropdown  text-sm-center text-lg-end">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                    data-bs-toggle="dropdown">
+                   {# <span>{{ app.user.name }}</span>#}
+                    <img class="rotate" style="width: 40px"src="{{ app.user.avatar.image }}">
+                    </a>
+                                
+                    <ul class="dropdown-menu  text-sm-center text-lg-start" style= "serif;background-color:#007682;">
+                        <li><a class="dropdown-item " style="font-family: 'Luckiest Guy', serif;color: #333333;letter-spacing: 1px;" href="{{ path('app_logout')}}">Déconnexion</a></li>
+                    </ul>
+                </li>
+                {% endif %}
+            {% endif %} 
+            </ul>
+        </div>
+        </div>
+    </nav>
+
+    {% block body %}{% endblock %}
+    </body>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ"
+    crossorigin="anonymous"></script>
+</html>

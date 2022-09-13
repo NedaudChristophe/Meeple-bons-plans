@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Commentaire{% endblock %}
+
+{% block body %}
+<div class="container pt-5">
+
+<div class="row mb-2">
+    <h1 class="text-center my-5" style="font-family: 'Luckiest Guy', serif;color: #007682;">Les <span style="color: #d53767;">commentaires</span></h1>
+    <div class="col">
+    {% if is_granted('ROLE_ADMIN') %}     
+        <a class="btn btn-primary mb-4" style="font-family: 'Luckiest Guy', serif;background-color:#007682;border:none;letter-spacing: 1px;" href="{{ path('app_back_comment_new') }}">Ajouter un commentaire</a>
+    {% endif %}        
+            <table class="table text-center table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th class="elt_display-tablet">Id</th>
+                        <th class="col-4">Commentaire</th>
+                        <th class ="elt_display-tablet">Membre</th>
+                        <th class="elt_display-desktop">CreatedAt</th>
+                        <th class="elt_display-desktop">UpdatedAt</th>
+                        <th class="col-3 ">actions</th>
+                    </tr>
+                </thead>
+                <tbody class="align-middle">
+                {% for comment in comments %}
+                    <tr>
+                        <td class="elt_display-tablet">{{ comment.id }}</td>
+                        <td>{{ comment.comment|striptags|slice(0, 40) }}</td>
+                        <td class ="elt_display-tablet">{{ comment.user.name }}</td>
+                        <td class="elt_display-desktop" >{{ comment.createdAt ? comment.createdAt|date('d-m-Y') : '' }}</td>
+                        <td class="elt_display-desktop">{{ comment.updatedAt ? comment.updatedAt|date('d-m-Y') : '' }}</td>
+                        <td class="text-sm-truncate" style="max-width: 150px;">
+                            <a class="btn btn-sm btn-primary" style="background-color: #CDF7F6;border:none;color: #333333;font-weight:bold;margin-right:5px;" href="{{ path('app_back_comment_show', {'id': comment.id}) }}">Voir</a>
+                            
+                            {% if is_granted('ROLE_ADMIN') %}
+                                <a class="btn btn-sm btn-warning" style="background-color: #333333;border:none;color: white;font-weight:bold;" href="{{ path('app_back_comment_edit', {'id': comment.id}) }}">Modifier</a>
+                            {% endif %} 
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="5">Commentaire non trouvé</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+
+    
+{% endblock %}

@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Categorie{% endblock %}
+
+{% block body %}<div class="container pt-5">
+
+<div class="row mb-2">
+    <h1 class="text-center my-5" style="font-family: 'Luckiest Guy', serif;color: #007682;">Liste des  <span style="color: #d53767;">catégories</span></h1>
+    <div class="col">
+    {% if is_granted('ROLE_ADMIN') %}     
+        <a class="btn btn-primary mb-4" style="font-family: 'Luckiest Guy', serif;background-color:#007682;border:none;letter-spacing: 1px;" href="{{ path('app_back_category_new') }}">Ajouter une catégorie</a>
+    {% endif %}
+            <table class="table text-center table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th class="elt_display-tablet" style="font-size:0.8em" >Id</th>
+                        <th>Catégorie</th>
+                        <th>actions</th>
+                    </tr>
+                </thead>
+                <tbody class="align-middle">
+                {% for category in categories %}
+                    <tr>
+                        <td class="elt_display-tablet" style="font-size:0.8em" >{{ category.id }}</td>
+                        <td>{{ category.name }}</td>
+                        <td>
+                            <a class="btn btn-sm btn-primary" style="background-color: #CDF7F6;border:none;color: #333333;font-weight:bold;margin-right:5px;" href="{{ path('app_back_category_show', {'id': category.id}) }}">Voir</a>
+                            
+                            {% if is_granted('ROLE_ADMIN') %}
+                                <a class="btn btn-sm btn-warning mx-2" style="background-color: #333333;border:none;color: white;font-weight:bold;" href="{{ path('app_back_category_edit', {'id': category.id}) }}">Modifier</a>
+                            {% endif %} 
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="3">Catégorie non trouvé</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+
+    
+{% endblock %}

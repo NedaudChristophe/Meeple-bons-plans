@@ -1,0 +1,63 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Shop{% endblock %}
+
+{% block body %}
+
+<div class="container pt-5">
+
+    <div class="row mb-2">
+        
+        <div class="col">
+            <h1 class="text-center my-5" style="font-family: 'Luckiest Guy', serif;color: #007682;">{{ shop.name }}</h1>
+            <a class="btn btn-primary my-4" style="font-family: 'Luckiest Guy', serif;background-color:#007682;border:none;letter-spacing: 1px;" href="{{ path('app_back_shop_index') }}">Retour à la liste</a>
+                
+                <table class="table text-center">
+                    <tbody class="align-middle">
+                        <tr class="mobile_show">
+                            <th class="pink_line">Id</th>
+                            <td>{{ shop.id }}</td>
+                        </tr>
+                        <tr class="mobile_show">
+                            <th class="pink_line">Boutique</th>
+                            <td>{{ shop.name }}</td>
+                        </tr>
+                        <tr class="mobile_show">
+                            <th class="pink_line">Description</th>
+                            <td>{{ shop.description }}</td>
+                        </tr>
+                        <tr class="mobile_show">
+                            <th class="pink_line">Url</th>
+                            <td>{{ shop.url }}</td>
+                        </tr>
+                        <tr class="mobile_show">
+                            <th class="pink_line">Adresse</th>
+                            <td>{{ shop.adress }}</td>
+                        </tr>
+                        <tr class="mobile_show">
+                            <th class="pink_line">Créé le</th>
+                            <td>{{ shop.createdAt ? shop.createdAt|date('d-m-Y') : '' }}</td>
+                        </tr>
+                        <tr class="mobile_show">
+                            <th class="pink_line">Modifié le</th>
+                            <td>{{ shop.updatedAt ? shop.updatedAt|date('d-m-Y') : '' }}</td>
+                        </tr> 
+                        <tr class="mobile_show">
+                            <th class="pink_line">Image</th>
+                            <td><img src="{{ shop.image }}" style="width: 200px; height: 200px;" alt=""></td>
+                        </tr>
+                    </tbody>
+                </table>
+                {% if is_granted('ROLE_ADMIN') %} 
+                    <div class="col d-flex justify-content-center">
+                        <a class="btn btn btn-warning"  style="background-color: #333333;border:none;color: white;font-weight:bold;margin-right: 1.5em;" href="{{ path('app_back_shop_edit', {'id': shop.id}) }}">Modifier</a>
+
+                        {{ include('back/shop/_delete_form.html.twig') }}
+                    </div>
+                {% endif %}
+        </div>
+    </div>
+</div>
+    
+{% endblock %}
+

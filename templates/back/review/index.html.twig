@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Vote{% endblock %}
+
+{% block body %}
+<div class="container pt-5">
+
+    <div class="row mb-2">
+        <h1 class="text-center my-5" style="font-family: 'Luckiest Guy', serif;color: #007682;">Les <span style="color: #d53767;">votes</span></h1>
+        <div class="col">
+        {% if is_granted('ROLE_ADMIN') %}     
+            <a class="btn btn-primary mb-4" style="font-family: 'Luckiest Guy', serif;background-color:#007682;border:none;letter-spacing: 1px;" href="{{ path('app_back_review_new') }}">Ajouter un vote</a>
+        {% endif %}    
+            <table class="table  text-center table-striped table-hover">
+                    <thead>
+                        <tr>
+                            <th class ="elt_display-tablet">Id</th>
+                        <th class="elt_display-tablet">Deal</th>
+                            <th>Nom</th>
+                            <th class="elt_display-tablet">Vote</th>
+                            <th class="col-sm-auto col-md-3">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody class="align-middle">
+                    {% for review in reviews %}
+                        <tr>
+                        
+                            <td class ="elt_display-tablet"> {{ review.id }}</td>
+                        <td class="elt_display-tablet">{{ review.deal.title }}</td>
+                            <td>{{ review.user.name }}</td>
+                            <td class="elt_display-tablet">{{ review.vote}}</td>
+                            
+                            <td>
+                                <a class="btn btn-sm btn-primary " style="background-color: #CDF7F6;border:none;color: #333333;font-weight:bold;margin-right:5px;" href="{{ path('app_back_review_show', {'id': review.id}) }}">Voir</a>
+                                
+                                {% if is_granted('ROLE_ADMIN') %}
+                                    <a class="btn btn-sm btn-warning " style="background-color: #333333;border:none;color: white;font-weight:bold;" href="{{ path('app_back_review_edit', {'id': review.id}) }}">Modifier</a>
+                                {% endif %}
+                            </td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="5">Vote non trouvé</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+
+    
+{% endblock %}

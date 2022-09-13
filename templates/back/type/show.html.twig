@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Type{% endblock %}
+
+{% block body %}
+
+<div class="container pt-5">
+
+    <div class="row mb-2">
+        
+        <div class="col">
+            <h1 class="text-center my-5" style="font-family: 'Luckiest Guy', serif;color: #007682;">{{ type.name }}</h1>
+            <a class="btn btn-primary my-4" style="font-family: 'Luckiest Guy', serif;background-color:#007682;border:none;letter-spacing: 1px;" href="{{ path('app_back_type_index') }}">Retour à la liste</a>
+                
+                <table class="table text-center">
+                    <tbody class="align-middle">
+                        <tr class="mobile_show">
+                            <th class="pink_line">Id</th>
+                            <td>{{ type.id }}</td>
+                        </tr>
+                        <tr class="mobile_show">
+                            <th class="pink_line">Promo</th>
+                            <td>{{ type.name }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                {% if is_granted('ROLE_ADMIN') %} 
+                    <div class="col d-flex justify-content-center">
+                        <a class="btn btn btn-warning"  style="background-color: #333333;border:none;color: white;font-weight:bold;margin-right: 1.5em;" href="{{ path('app_back_type_edit', {'id': type.id}) }}">Modifier</a>
+
+                        {{ include('back/type/_delete_form.html.twig') }}
+                    </div>
+                {% endif %}
+        </div>
+    </div>
+</div>
+    
+
+{% endblock %}

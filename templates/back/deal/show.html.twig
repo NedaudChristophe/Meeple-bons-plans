@@ -1,0 +1,92 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Deal{% endblock %}
+
+{% block body %}
+
+<div class="container pt-5">
+
+    <div class="row mb-2">
+        
+        <div class="col">
+            <h1 class="text-center my-5" style="font-family: 'Luckiest Guy', serif;color: #007682;">{{ deal.title }}</h1>
+            <a class="btn btn-primary mb-4" style="font-family: 'Luckiest Guy', serif;background-color:#007682;border:none;letter-spacing: 1px;" href="{{ path('app_back_deal_index') }}">Retour à la liste</a>
+                
+                <table class="table text-center">
+                    <tbody class="align-middle">
+                        <tr class="mobile_show">
+                            <th class="pink_line">Id</th>
+                            <td>{{ deal.id }}</td>
+                        </tr>
+                        <tr class="mobile_show">
+                            <th class="pink_line">Titre</th>
+                            <td>{{ deal.title }}</td>
+                        </tr>
+                        <tr class="mobile_show">
+                            <th class="pink_line">Nom du membre</th>
+                            <td>{{ deal.user.name }}</td>
+                        </tr>
+                        <tr class="mobile_show">
+                            <th class="pink_line">Nom du jeux</th>
+                            <td>{{ deal.game.name }}</td>
+                        </tr>
+                        <tr class="mobile_show">
+                            <th class="pink_line">Image du jeux</th>
+                            <td><img class="w-25 h-25" src="{{ deal.game.image }}" alt="image"</td>
+                        </tr>
+                        <tr class="mobile_show">
+                            <th class="pink_line">Description</th>
+                            <td>{{ deal.description|slice(0, 100) }}</td>
+                        </tr>
+                        <tr class="mobile_show">
+                            <th class="pink_line">Boutique</th>
+                            <td>{{ deal.shop.name }}</td>
+                        </tr>
+                        <tr class="mobile_show">
+                            <th class="pink_line">Url</th>
+                            <td>{{ deal.url|striptags|slice(0, 40) }}...</td>
+                        </tr>
+                        <tr class="mobile_show">
+                            <th class="pink_line">Prix Remisé</th>
+                            <td>{{ deal.offerPrice }}</td>
+                        </tr>
+                        <tr class="mobile_show">
+                            <th class="pink_line">Frais de port</th>
+                            <td>{{ deal.shippingCost }}</td>
+                        </tr>
+                        <tr class="mobile_show">
+                            <th class="pink_line">Code Promo</th>
+                            <td>{{ deal.promoCode }}</td>
+                        </tr>
+                        <tr class="mobile_show">
+                            <th class="pink_line">Fin du deal</th>
+                            <td>{{ deal.endDeal ? deal.endDeal|date('d-m-Y') : '' }}</td>
+                        </tr>
+                        <tr class="mobile_show">
+                            <th class="pink_line">Publié le</th>
+                            <td>{{ deal.createdAt ? deal.createdAt|date('d-m-Y') : '' }}</td>
+                        </tr>
+                        <tr class="mobile_show">
+                            <th class="pink_line">Modifié le</th>
+                            <td>{{ deal.updatedAt ? deal.updatedAt|date('d-m-Y') : '' }}</td>
+                        </tr>
+                        <tr class="mobile_show">
+                            <th class="pink_line">Status</th>
+                            <td>{{ deal.status }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                {% if is_granted('ROLE_ADMIN') %} 
+                    <div class="col d-flex justify-content-center">
+                        <a class="btn btn btn-warning" style="background-color: #333333;border:none;color: white;font-weight:bold;margin-right: 1.5em;" href="{{ path('app_back_deal_edit', {'id': deal.id}) }}">Modifier</a>
+
+                        {{ include('back/deal/_delete_form.html.twig') }}
+                    </div>
+                {% endif %}
+        </div>
+    </div>
+</div>
+    
+{% endblock %}
+   
+

@@ -1,0 +1,57 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}User{% endblock %}
+
+{% block body %}
+
+<div class="container pt-5">
+
+    <div class="row mb-2">
+        
+        <div class="col">
+            <h1 class="text-center my-5" style="font-family: 'Luckiest Guy', serif;color: #007682;">Fiche de <span style="color: #d53767;">{{ user.name }}</span></h1>
+            <a class="btn btn btn-warning " style="font-family: 'Luckiest Guy', serif;background-color:#007682;border:none;letter-spacing: 1px;color: white;" href="{{ path('app_back_user_index') }}">Retour à la liste</a>
+                
+                <table class="table text-center">
+                    <tbody class="align-middle">
+
+                        <tr class="mobile_show">
+                            <th class="pink_line">Id</th>
+                            <td>{{ user.id }}</td>
+                        </tr>
+                        <tr class="mobile_show">
+                        <th class="pink_line">Nom</th>
+                            <td>{{ user.name }}</td>
+                        </tr>
+                        <tr class="mobile_show">
+                            <th class="pink_line">Email</th>
+                            <td>{{ user.email }}</td>
+                        </tr>
+                        <tr class="mobile_show">
+                            <th class="pink_line">Roles</th>
+                            <td>{{ user.roles ? user.roles|json_encode : '' }}</td>
+                        </tr>
+                        <tr class="mobile_show">
+                        <th class="pink_line">Avatar</th>
+                            <td><img style="width: 50px" src="{{ user.avatar.image }}" alt="image"</td>
+                        </tr class="mobile_show">
+                       {# <tr class="pink_line">
+                            <th>Password</th>
+                            <td>{{ user.password }}</td>
+                        </tr> #}
+                        
+                    </tbody>
+                </table>
+                {% if is_granted('ROLE_ADMIN') %} 
+                    <div class="col d-flex justify-content-center">
+                        <a class="btn btn btn-warning"  style="background-color: #333333;border:none;color: white;font-weight:bold;margin-right: 1.5em;" href="{{ path('app_back_user_edit', {'id': user.id}) }}">Modifier</a>
+
+                        {{ include('back/user/_delete_form.html.twig') }}
+                    </div>
+                {% endif %}
+        </div>
+    </div>
+</div>
+    
+
+{% endblock %}

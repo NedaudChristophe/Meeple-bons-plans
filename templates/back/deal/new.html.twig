@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nouveau bon plan{% endblock %}
+
+{% block body %}
+<div class="container pt-5">
+
+    <div class="row mb-2">
+        <h1 class="text-center mt-4 mb-5" style="font-family: 'Luckiest Guy', serif;color: #007682;">Ajout de <span style="color: #d53767;">bon plan</span></h1>
+        <div class="col">
+            <div class="col" style="font-family: 'Luckiest Guy', serif;color: #d53767;">
+                <a type="button" class="btn btn-primary mb-5" style="font-family: 'Luckiest Guy', serif;background-color:#007682;border:none;letter-spacing: 1px;" href="{{ path('app_back_deal_index') }}">Retour à la liste</a>
+                {{ include('back/deal/_form.html.twig') }}
+            </div>
+        </div>
+    </div>
+</div>
+    
+{% endblock %}

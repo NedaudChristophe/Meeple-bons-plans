@@ -1,0 +1,8 @@
+{{ form_start(form, {attr: {novalidate: 'novalidate'}}) }}
+</div>
+<div class="col" >
+    {{ form_widget(form) }}
+</div>
+<div class="col d-flex justify-content-center">
+    <button class="btn btn-success mx:auto" style="background-color: #333333;border:none;color: white;margin-right:1.5em;font-weight:bold;">{{ button_label|default('Enregistrer') }}</button>
+{{ form_end(form) }}

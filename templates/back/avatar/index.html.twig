@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Avatar{% endblock %}
+
+{% block body %}
+<div class="container pt-5">
+
+    <div class="row mb-2">
+        <h1 class="text-center my-5" style="font-family: 'Luckiest Guy', serif;color: #007682;">Les  <span style="color: #d53767;">avatars</span></h1>
+        <div class="col">
+        {% if is_granted('ROLE_ADMIN') %} 
+            <a class="btn btn-primary mb-4" style="font-family: 'Luckiest Guy', serif;background-color:#007682;border:none;letter-spacing: 1px;" href="{{ path('app_back_avatar_new') }}">Ajouter un avatar</a>
+        {% endif %}
+            <table class="table text-center table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th class ="elt_display-tablet">Id</th>
+                        <th>Avatar</th>
+                        <th>actions</th>
+                    </tr>
+                </thead>
+                <tbody class="align-middle">
+                {% for avatar in avatars %}
+                    <tr>
+                        <td class="align-middle elt_display-tablet">{{ avatar.id }}</td>
+                        <td class=""><img style="width: 150px; height: 150px;" src="{{ avatar.image }}" alt="image"</td>
+                        <td class="align-middle">
+                            <a class="btn btn-sm btn-primary" style="background-color: #CDF7F6;border:none;color: #333333;font-weight:bold;margin-right:5px;" href="{{ path('app_back_avatar_show', {'id': avatar.id}) }}">Voir</a>
+                            {% if is_granted('ROLE_ADMIN') %}
+                                <a class="btn btn-sm btn-warning" style="background-color: #333333;border:none;color: white;font-weight:bold;" href="{{ path('app_back_avatar_edit', {'id': avatar.id}) }}">Modifier</a>
+                            {% endif %} 
+                    </td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="3">Avatar non trouvé</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+
+    
+{% endblock %}

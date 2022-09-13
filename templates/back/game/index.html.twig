@@ -1,0 +1,52 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Jeu{% endblock %}
+
+{% block body %}
+<div class="container pt-5">
+
+    <div class="row mb-2">
+        <h1 class="text-center my-5" style="font-family: 'Luckiest Guy', serif;color: #007682;">Les <span style="color: #d53767;">jeux</span></h1>
+        <div class="col">
+        {% if is_granted('ROLE_ADMIN') %}     
+            <a class=" btn btn-primary mb-4" style="font-family: 'Luckiest Guy', serif;background-color:#007682;border:none;letter-spacing: 1px;" href="{{ path('app_back_game_new') }}">Ajouter un jeu</a>
+        {% endif %}        
+                <table class="table text-center table-striped table-hover">
+                    <thead>
+                        <tr>
+                            <th class ="elt_display-tablet">Id</th>
+                            <th class="col-3 elt_display-tablet">Nom du jeu</th>
+                            <th class="col-3">Image</th>
+                            <th class ="elt_display-none">Description</th>
+                            <th class ="elt_display-desktop">CreatedAt</th>
+                            <th class ="elt_display-desktop">UpdatedAt</th>
+                            <th class="col-3" >actions</th>
+                        </tr>
+                    </thead>
+                    <tbody class="align-middle">
+                    {% for game in games %}
+                        <tr>
+                            <td class ="elt_display-tablet">{{ game.id }}</td>
+                            <td class ="elt_display-tablet">{{ game.name }}</td>
+                            <td><img class="rotate image" style="width: 110px; height: 110px;" src="{{ game.image }}" alt="image"</td>
+                            <td class ="elt_display-none">{{ game.description }}</td>
+                            <td class ="elt_display-desktop">{{ game.createdAt ? game.createdAt|date('d-m-Y') : '' }}</td>
+                            <td class ="elt_display-desktop">{{ game.updatedAt ? game.updatedAt|date('d-m-Y') : '' }}</td>
+                            <td>
+                                <a class="btn btn-sm btn-primary" style="background-color: #CDF7F6;border:none;color: #333333;font-weight:bold;margin-right:5px;" href="{{ path('app_back_game_show', {'id': game.id}) }}">Voir</a>
+                                
+                                {% if is_granted('ROLE_ADMIN') %} 
+                                    <a class="btn btn-sm btn-warning" style="background-color: #333333;border:none;color: white;font-weight:bold;" href="{{ path('app_back_game_edit', {'id': game.id}) }}">Modifier</a>
+                                {% endif %} 
+                            </td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="7">Jeu non trouvé</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+
+    
+{% endblock %}
