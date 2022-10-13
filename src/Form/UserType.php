@@ -40,22 +40,22 @@ class UserType extends AbstractType
                         'label' => "Mot de passe",
                         'mapped' => true,
                         'required' => true,
-                       /* 'help'=> "Le mot de passe doit contenir au minimum 8 caractères, une majuscule, un chiffre et un caractère spécial", */
-                    //'always_empty' => false,
+                        'help'=> "Le mot de passe doit contenir au minimum 12 caractères, une majuscule, un chiffre et un caractère spécial", 
+                      //'always_empty' => false,
                         'constraints' => [
                             new NotBlank([
                                 'message' => 'Veuillez entrer un mot de passe',
                             ]),
                             new Length([
-                                'min' => 4,
-                                'minMessage' => 'Votre mot de passe doit contenir au moins {{ limit }} caractères.',
+                                'min' => 12,
+                                // 'minMessage' => 'Votre mot de passe doit contenir au moins {{ 12 }} caractères.',
                                 // max length allowed by Symfony for security reasons
                                 'max' => 4096,
                             ]),
-                          /*  new Regex(
-                                 "/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/",
-                                 "Le mot de passe doit contenir au minimum 8 caractères, une majuscule, un chiffre et un caractère spécial"
-                             ), */
+                            new Regex(
+                                 "/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{12,}$/",
+                                 "Votre mot de passe n'est pas assez sécurisé.veuillez recommencer"
+                             ), 
                         ],
                         'label_attr' => ['class' => 'coucou', 'for'=>"password",]
                     ]) 
